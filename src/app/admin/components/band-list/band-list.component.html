@@ -1,0 +1,36 @@
+<section class="band-list view">
+    <h1 class="title">Lista de bandas</h1>
+    <div class="list-actions">
+        <mat-form-field appearance="fill" class="search rounded">
+            <input matInput [formControl]="search" placeholder="Buscar">
+            <mat-icon matPrefix color="primary">search</mat-icon>
+        </mat-form-field>
+        <a mat-mini-fab color="primary" routerLink="/admin/band/create" #tooltip="matTooltip" matTooltip="Agregar nueva banda">
+            <mat-icon>add</mat-icon>
+        </a>
+    </div>
+    <div class="list">
+        <div *ngFor="let band of bandList" class="band">
+            <div class="background">
+                <img [src]="band.background" [alt]="band.name">
+            </div>
+            <div class="content">
+                <p class="name">{{ band.name }}</p>
+                <p class="origin">{{ band.origin }}</p>
+            </div>
+            <button class="menu" mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <a mat-menu-item [routerLink]="'/admin/band/' + band.slug">
+                    <mat-icon>edit</mat-icon>
+                    <span>Editar</span>
+                </a>
+                <button mat-menu-item (click)="openDialog(band)">
+                    <mat-icon>delete</mat-icon>
+                    <span>Eliminar</span>
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+</section>

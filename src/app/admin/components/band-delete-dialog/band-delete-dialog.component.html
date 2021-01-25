@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Eliminar banda</h1>
+<div mat-dialog-content>
+  <p>¿Estás seguro que quieres eliminar a {{ bandName }}?</p>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button color="warn" [mat-dialog-close]="true" cdkFocusInitial>Eliminar</button>
+</div>

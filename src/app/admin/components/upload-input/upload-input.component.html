@@ -1,0 +1,8 @@
+<div class="upload-input image-file">
+    <label for="background">Background</label>
+    <input #fileInput id="background" type="file" accept="image/*" (change)="readFile($event)">
+    <button class="browse" type="button" (click)="fileInput.click()">
+        {{ label }}
+        <div class="preview background" *ngIf="preview" [style.backgroundImage]="'url('+ preview.toString() +')'"></div>
+    </button>
+</div>

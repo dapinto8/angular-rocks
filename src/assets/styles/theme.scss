@@ -1,0 +1,19 @@
+@import '@angular/material/theming';
+@import './pallete.scss';
+
+@include mat-core();
+
+$angular-rocks-app-primary: mat-palette($md-primary);
+$angular-rocks-app-accent: mat-palette($md-accent);
+$angular-rocks-app-warn: mat-palette($md-warn);
+
+
+$angular-rocks-app-theme: mat-dark-theme((
+  color: (
+    primary: $angular-rocks-app-primary,
+    accent: $angular-rocks-app-accent,
+    warn: $angular-rocks-app-warn
+  )
+));
+
+@include angular-material-theme($angular-rocks-app-theme);

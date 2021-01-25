@@ -1,0 +1,116 @@
+ 
+<section class="band-create-edit view">
+    <div *ngIf="loading" class="loader">
+        <mat-progress-spinner color="primary" mode="indeterminate" value="60"></mat-progress-spinner>
+    </div>
+    <div *ngIf="bandForm">
+        <form [formGroup]="bandForm" (ngSubmit)="onSubmit()">
+            <div class="form-section-head">
+                <a mat-icon-button color="accent" routerLink="/admin/bands">
+                    <mat-icon>arrow_back</mat-icon>
+                </a>
+                <h1 class="title">
+                    {{ action === 'create' ? 'Agregar nueva banda' : 'Editar banda' }}
+                </h1>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input type="text" matInput formControlName="name" [errorStateMatcher]="matcher" placeholder="The Beatles">
+                    <mat-error *ngIf="bandForm.get('name')?.hasError('required')">
+                    Nombre es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Origen</mat-label>
+                    <input type="text" matInput formControlName="origin" [errorStateMatcher]="matcher" placeholder="Liverpool, Reino Unido (1957)">
+                    <mat-error *ngIf="bandForm.get('origin')?.hasError('required')">
+                    Origen es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Spotify</mat-label>
+                    <input type="text" matInput formControlName="spotify" [errorStateMatcher]="matcher" placeholder="https://open.spotify.com/artist/xxxxx">
+                </mat-form-field>
+            </div>
+            <mat-form-field appearance="outline">
+                <mat-label>Descripción</mat-label>
+                <textarea matInput formControlName="description" [errorStateMatcher]="matcher" rows="8" placeholder="The Beatles is a band..."></textarea>
+                <mat-error *ngIf="bandForm.get('description')?.hasError('required')">
+                    Descripción es <strong>requerida</strong>
+                </mat-error>
+            </mat-form-field>
+            <app-upload-input [label]="'Subir imagen'" [previewUrl]="bandForm.get('background')?.value"
+                (data)="setFileValue($event, bandForm, 'background')"></app-upload-input>
+            <div class="form-section-head">
+                <h2 class="title">Integrantes</h2>
+                <button mat-mini-fab color="primary" type="button" (click)="addMember()" aria-label="Add member">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+            <div formArrayName="members">
+                <div class="member" *ngFor="let control of faMembers.controls; let i = index; let last = last" [formGroupName]="i">
+                    <button mat-icon-button type="button" (click)="removeMember(i)" class="remove" aria-label="Remove">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <div class="form-group">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nombre</mat-label>
+                            <input type="text" matInput formControlName="name" [errorStateMatcher]="matcher" placeholder="John Lennon">
+                            <mat-error *ngIf="control.get('name')?.hasError('required')">
+                              Nombre es <strong>requerido</strong>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rol</mat-label>
+                            <input type="text" matInput formControlName="role" [errorStateMatcher]="matcher" placeholder="Armónica">
+                            <mat-error *ngIf="control.get('role')?.hasError('required')">
+                              Rol es <strong>requerido</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <app-upload-input [label]="'Subir imagen'" [previewUrl]="control.get('image')?.value"
+                        (data)="setFileValue($event, control, 'image')"></app-upload-input>
+                </div>
+            </div>
+            <div class="form-section-head">
+                <h2 class="title">Álbumes</h2>
+                <button mat-mini-fab color="primary" type="button" (click)="addAlbum()" #tooltip="matTooltip" matTooltip="Agregar álbum">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+            <div formArrayName="albums">
+                <div class="album" *ngFor="let control of faAlbums.controls; let i = index; let last = last" [formGroupName]="i">
+                    <button mat-icon-button class="remove" (click)="removeAlbum(i)" aria-label="Remove">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <div class="form-group">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nombre</mat-label>
+                            <input type="text" matInput formControlName="name" [errorStateMatcher]="matcher" placeholder="Meet the beatles">
+                            <mat-error *ngIf="control.get('name')?.hasError('required')">
+                              Nombre es <strong>requerido</strong>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Año de lanzamiento</mat-label>
+                            <input type="text" matInput formControlName="releaseYear" [errorStateMatcher]="matcher" placeholder="1964">
+                            <mat-error *ngIf="control.get('releaseYear')?.hasError('required')">
+                                Año de lanzamiento es <strong>requerido</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Spotify</mat-label>
+                        <input type="text" matInput formControlName="spotify" [errorStateMatcher]="matcher" placeholder="https://open.spotify.com/album/xxxxx">
+                    </mat-form-field>
+                    <app-upload-input [label]="'Subir portada del álbum'" [previewUrl]="control.get('cover')?.value"
+                        (data)="setFileValue($event, control, 'cover')"></app-upload-input>
+                </div>
+            </div>
+            <div class="submit">
+                <button mat-raised-button color="primary" [disabled]="bandForm.invalid" type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+</section>

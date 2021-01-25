@@ -1,0 +1,30 @@
+@import './reset';
+@import './form';
+@import './buttons';
+@import './variables';
+
+.background {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.view {
+    padding: 1rem 1rem 2rem;
+    min-height: 100vh;
+}
+
+.toast-container {
+    &.toast-bottom-center {
+        .ngx-toastr.toast-success {
+            margin-bottom: 100px;
+        }
+    }
+    .ngx-toastr.toast-success {
+        padding: 16px;
+        background-color: $primary;
+        background-image: none;
+        box-shadow: 0 0 12px rgb(0 0 0 / 40%);
+        transition: all ease-out .3s;
+    }
+}

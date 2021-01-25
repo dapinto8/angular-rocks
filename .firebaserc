@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-rocks-a55b8": {
+      "hosting": {
+        "angular-rocks": [
+          "angular-rocks-a55b8"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+.band-list {
+    
+    .title {
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: white;
+    }
+
+    .list-actions {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+
+        .search {
+           max-width: 320px;
+           margin-right: 1rem;
+        }
+    }
+
+    .list {
+        .band {
+            position: relative;
+            height: 8rem;
+            display: flex;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            overflow: hidden;
+            background-color: rgba(255 255 255 / 10%);
+
+            .menu {
+                position: absolute;
+                top: 0;
+                right: 0;
+                color: white;
+            }
+
+
+            .background {
+                width: 8rem;
+                height: 8rem;
+                overflow: hidden;
+            }
+
+            .content {
+                flex: 1;
+                padding: 1rem;
+
+                p {
+                    margin: 0;
+                    color: white;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    line-height: 1.5rem;
+
+                    &.origin {
+                        font-size: 0.85rem;
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+    }
+}
